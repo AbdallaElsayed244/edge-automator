@@ -2,22 +2,23 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-
 import pickle
+import time  # Import the time module
 
 # Start the browser and visit the website
 browser = webdriver.Edge()
 browser.get('https://www.bing.com')
 
-# Assuming 'element' is the locator of the element to be located
-element = WebDriverWait(browser, 10).until(
-    EC.presence_of_element_located((By.ID, "element"))
-)
+# Wait for the specific element to be present on the page
+
 
 # Load cookies
 cookies = pickle.load(open("cookie.pkl", "rb"))
 for cookie in cookies:
     browser.add_cookie(cookie)
+
+# Add a delay to allow the browser to load the cookies
+time.sleep(5)  # Adjust the delay as needed
 
 # Perform searches
 tab = range(31, 91)
